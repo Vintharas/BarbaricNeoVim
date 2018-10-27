@@ -24,11 +24,13 @@ call minpac#add('tomasr/molokai')
 call minpac#add('Lokaltog/vim-distinguished')
 call minpac#add('fenetikm/falcon')
 call minpac#add('haishanh/night-owl.vim')
+call minpac#add('rakr/vim-one')
 
 " Editing
 call minpac#add('tpope/vim-repeat')       " Enable repeating supported plugin maps with .
 call minpac#add('tpope/vim-unimpaired')   " pairs of handy bracket mappings
 call minpac#add('tpope/vim-surround')     " Quoting parenthesing made simple
+call minpac#add('scrooloose/nerdcommenter') " Comments
 
 " Customize UI
 call minpac#add('itchyny/lightline.vim')  " Custom Status line
@@ -48,11 +50,15 @@ call minpac#add('w0rp/ale')               " linting, code completion, go to defi
 call minpac#add('janko-m/vim-test')       " testing helpers
 
 " Support for languages
-call minpac#add('pangloss/vim-javascript') " JavaScript
-call minpac#add('mxw/vim-jsx')             " JSX
 call minpac#add('tpope/vim-ragtag')       " XML/HTML mappings
 call minpac#add('godlygeek/tabular')       " required by vim-markdown
 call minpac#add('plasticboy/vim-markdown') " markdown support
+call minpac#add('mattn/emmet-vim') " emmet
+call minpac#add('cakebaker/scss-syntax.vim') " SASS
+
+"" JavaScript
+call minpac#add('pangloss/vim-javascript') " JavaScript
+call minpac#add('mxw/vim-jsx')             " JSX
 
 "" TypeScript
 call minpac#add('leafgarland/typescript-vim') " TypeScript
@@ -70,6 +76,16 @@ call minpac#add('alvan/vim-closetag')      " Authoclose html tags
 " Distraction free modes
 call minpac#add('junegunn/goyo.vim')      " distraction free mode
 call minpac#add('junegunn/limelight.vim') " focus on what you're writing now
+
+" Sessions and integration with other tools
+call minpac#add('tpope/vim-obsession') " easy save sessions
+call minpac#add('christoomey/vim-tmux-navigator') " Better navigation integration with tmux
+" Tmux navigator
+" <ctrl-h> => Left
+" <ctrl-j> => Down
+" <ctrl-k> => Up
+" <ctrl-l> => Right
+" <ctrl-\> => Previous split
 
 
 "" Plugins config
@@ -144,10 +160,13 @@ noremap <Space> <Nop>
 let mapleader = "\<Space>"
 
 " Filetypes
-filetype on         " enable file type detection
-filetype plugin on  " enable loading plugins for ft
-filetype indent on  " enable indent per ft
+" This enables file type detection (like filetype on)
+" and also loading plugins and indentation per filetype
+filetype plugin indent on
 syntax enable    " enable syntax highlighting
+
+
+set autoindent   " Copy indent from current line when starting a new line
 
 set clipboard+=unnamedplus " use system clipboard
 set showcmd      " display incomplete commands
@@ -173,11 +192,12 @@ set gdefault     " use global option in regex by default
 set wrap         " turn on line wrapping
 set scrolloff=3  " show 3 lines of context around cursor
 set display+=lastline "Display as much as possible of a window's last line
+set list         " show invisible characters
 set title        " show terminal title
 set visualbell   " no beeping
-set list         " show invisible characters
 
 "" Global tabs/spaces
+set smarttab     " use spaces instead of tabs
 set tabstop=2    " global tab width
 set shiftwidth=2
 set expandtab    " use spaces instead of tabs
@@ -219,10 +239,15 @@ nmap J 5j
 nmap K 5k
 
 "" Moving between buffers
-nmap gh <C-w>h
-nmap gj <C-w>j
-nmap gk <C-w>k
-nmap gl <C-w>l
+
+"" These ones would be even nicer but the integration
+"" with tmux wouldn't work as well. I'd need to remember
+"" two sets of mappings. Keeping them if I consider to
+"" use neovim terminal instead of tmux
+" nmap gh <C-w>h
+" nmap gj <C-w>j
+" nmap gk <C-w>k
+" nmap gl <C-w>l
 
 " next tab
 nmap <C-l> gt
