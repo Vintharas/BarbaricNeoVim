@@ -213,7 +213,7 @@ set nofoldenable " Disable folding
 inoremap jj <ESC> " Type j twice to leave insert mode
 
 " Navigation: Custom Motions/Movements
-source navigation-mappings.vim
+source $VIMCONFIG/navigation-mappings.vim
 " Custom Text editing
-source editing-mappings.vim
+source $VIMCONFIG/editing-mappings.vim
 
