@@ -24,6 +24,10 @@ nmap J 5j
 nmap K 5k
 vmap J 5j
 vmap K 5k
+nmap H ^
+nmap L $
+vmap H ^
+vmap L $
 
 "" Moving between buffers
 
