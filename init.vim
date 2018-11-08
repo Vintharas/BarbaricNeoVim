@@ -8,6 +8,11 @@
 " Starting afresh!!! Wiiii!
 "
 " set nocompatible  " This is set by default in neovim
+"
+" mapleader config
+map <Space> <Nop>
+" map <Space> <Leader>
+let mapleader = "\<Space>"
 
 " Package manager minpac
 packadd minpac
@@ -18,19 +23,37 @@ call minpac#init()
 " any other plugin
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 """""""" Add other plugins here:
-" Colorschemes
+" Colorschemes and aesthetics
 call minpac#add('KeitaNakamura/neodark.vim')
 call minpac#add('tomasr/molokai')
 call minpac#add('Lokaltog/vim-distinguished')
 call minpac#add('fenetikm/falcon')
 call minpac#add('haishanh/night-owl.vim')
 call minpac#add('rakr/vim-one')
+call minpac#add('ryanoasis/vim-devicons')
+
 
 " Editing
 call minpac#add('tpope/vim-repeat')       " Enable repeating supported plugin maps with .
 call minpac#add('tpope/vim-unimpaired')   " pairs of handy bracket mappings
 call minpac#add('tpope/vim-surround')     " Quoting parenthesing made simple
 call minpac#add('scrooloose/nerdcommenter') " Comments
+
+" Autocompletion
+" Deoplete provides autocompletion from many sources
+call minpac#add('Shougo/deoplete.nvim')
+" call minpac#add('carlitux/deoplete-ternjs')
+call minpac#add('mhartington/nvim-typescript', {'do': './install.sh'})
+" Like using LSP - Language Server Protocol
+" call minpac#add('autozimu/LanguageClient-neovim', {
+"    \ 'branch': 'next',
+"    \ 'do': 'bash install.sh',
+"    \ })
+  call minpac#add('Shougo/neco-vim')
+  call minpac#add('Shougo/neoinclude.vim')
+  call minpac#add('ujihisa/neco-look')
+  call minpac#add('Shougo/echodoc.vim')
+
 
 " Customize UI
 call minpac#add('itchyny/lightline.vim')  " Custom Status line
@@ -61,9 +84,10 @@ call minpac#add('pangloss/vim-javascript') " JavaScript
 call minpac#add('mxw/vim-jsx')             " JSX
 
 "" TypeScript
-call minpac#add('leafgarland/typescript-vim') " TypeScript
-call minpac#add('Shougo/vimproc.vim', {'do': 'make'}) " needed for tsuquyomi
-call minpac#add('Quramy/tsuquyomi')          " TypeScript language services and such
+" call minpac#add('leafgarland/typescript-vim') " TypeScript
+call minpac#add('HerringtonDarkholme/yats.vim') " TypeScript
+" call minpac#add('Shougo/vimproc.vim', {'do': 'make'}) " needed for tsuquyomi
+" call minpac#add('Quramy/tsuquyomi')          " TypeScript language services and such
 " This doesn't seem to work very well with neovim. I need to investigate further
 
 "" Elm
@@ -115,6 +139,19 @@ let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \   '*': ['prettier'],
 \}
+"""" deoplete
+let g:deoplete#enable_at_startup = 1
+" Disable deoplete in some filetypes
+ autocmd FileType markdown
+ \ call deoplete#custom#buffer_option('auto_complete', v:false)
+
+
+" review these
+"nnoremap <Leader>c :call LanguageClient_contextMenu()<CR>
+"nnoremap <silent> <Leader>K :call LanguageClient#textDocument_hover()<CR>
+"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+"nnoremap <silent> <Leader>r :call LanguageClient#textDocument_rename()<CR>
+
 """" tsuquyomi
 let g:tsuquyomi_completion_detail = 1
 """" grepper
@@ -148,16 +185,26 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " Set colorscheme
 colorscheme neodark
 " Color scheme for lightline
-let g:lightline = {}
+let g:lightline = {
+      \ 'component_function': {
+      \   'filetype': 'MyFiletype',
+      \   'fileformat': 'MyFileformat',
+      \ }
+      \ }
 let g:lightline.colorscheme = 'neodark'
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
 
 "" Basic commands
 command! RefreshConfig source $MYVIMRC
 
 "" Basic vim setup
-" mapleader config
-noremap <Space> <Nop>
-let mapleader = "\<Space>"
 
 " Filetypes
 " This enables file type detection (like filetype on)
@@ -216,4 +263,6 @@ inoremap jj <ESC> " Type j twice to leave insert mode
 source $VIMCONFIG/navigation-mappings.vim
 " Custom Text editing
 source $VIMCONFIG/editing-mappings.vim
+" Gatsby blogging
+source $VIMCONFIG/gatsby-blogging.vim
 
