@@ -201,8 +201,6 @@ function! MyFileformat()
   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
-"" Basic commands
-command! RefreshConfig source $MYVIMRC
 
 "" Basic vim setup
 
@@ -255,9 +253,6 @@ set nowritebackup " No backups
 set noswapfile " No swap files
 set autoread " Automatically re-read files changed outside of vim
 set nofoldenable " Disable folding
-
-" Custom Mode changing mappings
-inoremap jj <ESC> " Type j twice to leave insert mode
 
 " Navigation: Custom Motions/Movements
 source $VIMCONFIG/navigation-mappings.vim
