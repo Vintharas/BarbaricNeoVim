@@ -10,7 +10,7 @@
 " set nocompatible  " This is set by default in neovim
 "
 " mapleader config
-map <Space> <Nop>
+" map <Space> <Nop>
 " map <Space> <Leader>
 let mapleader = "\<Space>"
 
@@ -25,35 +25,22 @@ call minpac#add('k-takata/minpac', {'type': 'opt'})
 """""""" Add other plugins here:
 " Colorschemes and aesthetics
 call minpac#add('KeitaNakamura/neodark.vim')
-call minpac#add('tomasr/molokai')
-call minpac#add('Lokaltog/vim-distinguished')
-call minpac#add('fenetikm/falcon')
-call minpac#add('haishanh/night-owl.vim')
 call minpac#add('rakr/vim-one')
+call minpac#add('haishanh/night-owl.vim')
 call minpac#add('ryanoasis/vim-devicons')
+" Other colorschemes that are nice but I'm not using
+" call minpac#add('tomasr/molokai')
+" call minpac#add('Lokaltog/vim-distinguished')
+" call minpac#add('fenetikm/falcon')
+" call minpac#add('haishanh/night-owl.vim')
 
 
 " Editing
 call minpac#add('tpope/vim-repeat')       " Enable repeating supported plugin maps with .
 call minpac#add('tpope/vim-unimpaired')   " pairs of handy bracket mappings
 call minpac#add('tpope/vim-surround')     " Quoting parenthesing made simple
+call minpac#add('wellle/targets.vim')     " Extend and enhances text-objects
 call minpac#add('scrooloose/nerdcommenter') " Comments
-
-" Autocompletion
-" Deoplete provides autocompletion from many sources
-call minpac#add('Shougo/deoplete.nvim')
-" call minpac#add('carlitux/deoplete-ternjs')
-call minpac#add('mhartington/nvim-typescript', {'do': './install.sh'})
-" Like using LSP - Language Server Protocol
-" call minpac#add('autozimu/LanguageClient-neovim', {
-"    \ 'branch': 'next',
-"    \ 'do': 'bash install.sh',
-"    \ })
-  call minpac#add('Shougo/neco-vim')
-  call minpac#add('Shougo/neoinclude.vim')
-  call minpac#add('ujihisa/neco-look')
-  call minpac#add('Shougo/echodoc.vim')
-
 
 " Customize UI
 call minpac#add('itchyny/lightline.vim')  " Custom Status line
@@ -93,9 +80,17 @@ call minpac#add('HerringtonDarkholme/yats.vim') " TypeScript
 "" Elm
 call minpac#add('ElmCast/elm-vim')   " Elm  support
 
+"" Haskell
+"" call minpac#add('eagletmt/neco-ghc')
+"" so ghc-mod seems to be deprecated
+"" a better wayto set this up would be using the LSP suppor provided by the
+"" maintained haskell-ide-engine
+"" see https://github.com/haskell/haskell-ide-engine/issues/331
+
 " Autoclose tags and quotes
-call minpac#add('Townk/vim-autoclose')    " Autoclose parens and stuff
-call minpac#add('alvan/vim-closetag')      " Authoclose html tags
+" Temporary disabled as it breaks abbreviations
+call minpac#add('Townk/vim-autoclose')   " Autoclose parens and stuff
+call minpac#add('alvan/vim-closetag')      " Autoclose html tags
 
 " Distraction free modes
 call minpac#add('junegunn/goyo.vim')      " distraction free mode
@@ -111,8 +106,30 @@ call minpac#add('christoomey/vim-tmux-navigator') " Better navigation integratio
 " <ctrl-l> => Right
 " <ctrl-\> => Previous split
 
+" Autocompletion
+" Deoplete provides autocompletion from many sources
+call minpac#add('Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'})
+let g:deoplete#enable_at_startup = 1
+call minpac#add('mhartington/nvim-typescript', {'do': './install.sh'})
+call minpac#add('Shougo/neco-vim')
+call minpac#add('Shougo/neoinclude.vim')
+call minpac#add('ujihisa/neco-look')
+call minpac#add('Shougo/echodoc.vim')
+let g:echodoc_enable_at_startup= 1
+
+" Snippets
+call minpac#add('Shougo/neosnippet.vim')         " snippet support 
+call minpac#add('Shougo/neosnippet-snippets')    " collection of snippets
+
+" Moving around or Motions
+call minpac#add('justinmk/vim-sneak')      " vim sneak. faster movement within Vim
+call minpac#add('easymotion/vim-easymotion') " vim easymotion
+
 
 "" Plugins config
+"""" Neodark
+let g:neodark#background = '#202020'
+
 """" Markdown
 " Highlight YAML front matter
 let g:vim_markdown_frontmatter = 1
@@ -123,11 +140,15 @@ command! PackUpdate source $MYVIMRC | call minpac#update()
 command! PackClean source $MYVIMRC | call minpac#clean()
 command! PackStatus source $MYVIMRC | call minpac#status()
 """" ale
+" disable typescript. Use nvim-typescript
+" only run linters I have defined
+let g:ale_linters_explicit = 1
 let g:ale_linters = {
 \'javascript': ['eslint'],
-\'typescript': ['tsserver'],
 \}
-let g:ale_completion_enabled = 1
+
+" use deoplete for completion instead of ale
+" let g:ale_completion_enabled = 1
 let g:ale_sign_column_always = 1
 nmap <silent> [W <Plug>(ale_first)
 nmap <silent> [w <Plug>(ale_previous)
@@ -139,21 +160,33 @@ let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \   '*': ['prettier'],
 \}
-"""" deoplete
-let g:deoplete#enable_at_startup = 1
-" Disable deoplete in some filetypes
- autocmd FileType markdown
- \ call deoplete#custom#buffer_option('auto_complete', v:false)
 
+" Add support for virtual text
+let g:ale_virtualtext_cursor = 1
 
-" review these
-"nnoremap <Leader>c :call LanguageClient_contextMenu()<CR>
-"nnoremap <silent> <Leader>K :call LanguageClient#textDocument_hover()<CR>
-"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-"nnoremap <silent> <Leader>r :call LanguageClient#textDocument_rename()<CR>
+"""" vim-autoclose
+" For some reason vim-autoclose breaks abbreviations unless you 
+" set this:
+let g:AutoCloseExpandSpace = 0 
 
-"""" tsuquyomi
-let g:tsuquyomi_completion_detail = 1
+"""" vim-snippets
+" Snippets bindings
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" " SuperTab like snippets behavior.
+"   imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"   \ "\<Plug>(neosnippet_expand_or_jump)"
+"   \: pumvisible() ? "\<C-n>" : "\<TAB>"
+"   smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"   \ "\<Plug>(neosnippet_expand_or_jump)"
+"   \: "\<TAB>"
+
+" Folder for custom snippets
+"let g:neosnippet#snippets_directory=$VIMCONFIG + '/snippets'
+let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
+
 """" grepper
 let g:grepper = {}
 let g:grepper.tools = ['grep', 'git', 'rg']
@@ -171,19 +204,20 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.js,*.jsx"
 " Color name (:help cterm-colors) or ANSI code
 let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_ctermfg = 240
-
-" Load the plugins right now. (optional)
-"packloadall
+""""" Emmet key mappings
+" not really necessary in normal mode. It conflicts with C-I jump forward
+" nmap <TAB> <plug>(emmet-expand-abbr)
 
 " Color scheme
 "" If you have vim >=8.0 or Neovim >= 0.1.5
 if (has("termguicolors"))
  set termguicolors
 endif
-" For Neovim 0.1.3 and 0.1.4
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " Set colorscheme
-colorscheme neodark
+colo one
+set background=dark
+" colo neodark
+" colo one
 " Color scheme for lightline
 let g:lightline = {
       \ 'component_function': {
@@ -191,7 +225,7 @@ let g:lightline = {
       \   'fileformat': 'MyFileformat',
       \ }
       \ }
-let g:lightline.colorscheme = 'neodark'
+let g:lightline.colorscheme = 'one'
 
 function! MyFiletype()
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
@@ -228,8 +262,6 @@ set relativenumber "show relative line number
 set ruler        " show cursor position
 set incsearch    " highlight matches as you type
 set hlsearch     " highlight matches
-" clear highlights
-nnoremap <leader><space> :noh<CR> 
 
 """ Regex
 set gdefault     " use global option in regex by default
@@ -254,10 +286,27 @@ set noswapfile " No swap files
 set autoread " Automatically re-read files changed outside of vim
 set nofoldenable " Disable folding
 
+set encoding=utf-8
+
 " Navigation: Custom Motions/Movements
 source $VIMCONFIG/navigation-mappings.vim
+" Windows and Tabs
+source $VIMCONFIG/windows-tabs.vim
 " Custom Text editing
 source $VIMCONFIG/editing-mappings.vim
+" Ex commands
+source $VIMCONFIG/ex-commands.vim
 " Gatsby blogging
 source $VIMCONFIG/gatsby-blogging.vim
+" Autocommands
+source $VIMCONFIG/autocommands.vim
+
+" Load the plugins right now
+" I need to load the plugins here because otherwise I can't
+" configure deoplete
+packloadall
+
+"""" plugins specific config
+"" Deoplete
+source $VIMCONFIG/deoplete.vim
 
