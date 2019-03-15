@@ -42,6 +42,14 @@ call minpac#add('tpope/vim-surround')     " Quoting parenthesing made simple
 call minpac#add('wellle/targets.vim')     " Extend and enhances text-objects
 call minpac#add('scrooloose/nerdcommenter') " Comments
 
+" Denite - all purpose list search and actions
+call minpac#add('Shougo/denite.nvim')     " denite
+call minpac#add('Shougo/neomru.vim')      " most recently used
+call minpac#add('neoclide/denite-git')    " git
+call minpac#add('chemzqm/denite-extra')   " extra sources (session, project, commands, location, quickfix, history)
+
+
+
 " Customize UI
 call minpac#add('itchyny/lightline.vim')  " Custom Status line
 
