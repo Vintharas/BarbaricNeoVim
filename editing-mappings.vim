@@ -13,3 +13,6 @@ vnoremap <Leader>j J
 nnoremap M J
 vnoremap M J
 
+
+" Keep s available
+nnoremap <Leader>sl s

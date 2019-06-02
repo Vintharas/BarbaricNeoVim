@@ -7,3 +7,9 @@ autocmd BufWritePre *.txt setfiletype markdown
 " disable on BufEnter and BufRead because then I get all vim
 " text files formatted as markdown. Wop
 augroup END
+
+augroup my_markdown
+autocmd!
+autocmd FileType markdown 
+nmap <leader>d F-a<space>[*]<ESC>
+augroup END

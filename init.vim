@@ -34,7 +34,6 @@ call minpac#add('ryanoasis/vim-devicons')
 " call minpac#add('fenetikm/falcon')
 " call minpac#add('haishanh/night-owl.vim')
 
-
 " Editing
 call minpac#add('tpope/vim-repeat')       " Enable repeating supported plugin maps with .
 call minpac#add('tpope/vim-unimpaired')   " pairs of handy bracket mappings
@@ -47,8 +46,6 @@ call minpac#add('Shougo/denite.nvim')     " denite
 call minpac#add('Shougo/neomru.vim')      " most recently used
 call minpac#add('neoclide/denite-git')    " git
 call minpac#add('chemzqm/denite-extra')   " extra sources (session, project, commands, location, quickfix, history)
-
-
 
 " Customize UI
 call minpac#add('itchyny/lightline.vim')  " Custom Status line
@@ -64,7 +61,8 @@ call minpac#add('mhinz/vim-grepper')       " Search files
 call minpac#add('tpope/vim-fugitive')     " git wrapper
 call minpac#add('tpope/vim-dispatch')     " dispatch other tools such as compilers, linters, etc
 call minpac#add('radenling/vim-dispatch-neovim') 
-call minpac#add('w0rp/ale')               " linting, code completion, go to definition
+" testing coc as a replacement for ale
+" call minpac#add('w0rp/ale')             " linting, code completion, go to definition
 call minpac#add('janko-m/vim-test')       " testing helpers
 
 " Support for languages
@@ -79,11 +77,8 @@ call minpac#add('pangloss/vim-javascript') " JavaScript
 call minpac#add('mxw/vim-jsx')             " JSX
 
 "" TypeScript
-" call minpac#add('leafgarland/typescript-vim') " TypeScript
-call minpac#add('HerringtonDarkholme/yats.vim') " TypeScript
-" call minpac#add('Shougo/vimproc.vim', {'do': 'make'}) " needed for tsuquyomi
-" call minpac#add('Quramy/tsuquyomi')          " TypeScript language services and such
-" This doesn't seem to work very well with neovim. I need to investigate further
+" call minpac#add('leafgarland/typescript-vim') " TypeScript syntax
+call minpac#add('HerringtonDarkholme/yats.vim') " TypeScript syntax
 
 "" Elm
 call minpac#add('ElmCast/elm-vim')   " Elm  support
@@ -116,23 +111,33 @@ call minpac#add('christoomey/vim-tmux-navigator') " Better navigation integratio
 
 " Autocompletion
 " Deoplete provides autocompletion from many sources
-call minpac#add('Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'})
-let g:deoplete#enable_at_startup = 1
-call minpac#add('mhartington/nvim-typescript', {'do': './install.sh'})
-call minpac#add('Shougo/neco-vim')
-call minpac#add('Shougo/neoinclude.vim')
-call minpac#add('ujihisa/neco-look')
-call minpac#add('Shougo/echodoc.vim')
-let g:echodoc_enable_at_startup= 1
+" call minpac#add('Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'})
+" let g:deoplete#enable_at_startup = 1
+" call minpac#add('mhartington/nvim-typescript', {'do': './install.sh'})
+" call minpac#add('Shougo/neoinclude.vim')
+" call minpac#add('ujihisa/neco-look')
+" call minpac#add('Shougo/echodoc.vim')
+" let g:echodoc_enable_at_startup= 1
+" Testing coc (conquer of completion)
+call minpac#add('Shougo/neco-vim')        " completion for viml
+call minpac#add('neoclide/coc-neco')      " adapter of nec to coc
+call minpac#add('neoclide/coc.nvim', {'do': { -> coc#util#install()}})
+" :CocInstall {coc-extensions}
+" coc-tsserver - typescript completions
+" coc-json     - json completions
+" coc-html     - html completions
+" coc-css      - css completions
+" coc-word     - top 10K english words
+" coc-snippets - snippets
 
 " Snippets
-call minpac#add('Shougo/neosnippet.vim')         " snippet support 
-call minpac#add('Shougo/neosnippet-snippets')    " collection of snippets
+" call minpac#add('Shougo/neosnippet.vim')         " snippet support 
+" call minpac#add('Shougo/neosnippet-snippets')    " collection of snippets
+call minpac#add('honza/vim-snippets')              " collection of snippets
 
 " Moving around or Motions
 call minpac#add('justinmk/vim-sneak')      " vim sneak. faster movement within Vim
 call minpac#add('easymotion/vim-easymotion') " vim easymotion
-
 
 "" Plugins config
 """" Neodark
@@ -148,29 +153,31 @@ command! PackUpdate source $MYVIMRC | call minpac#update()
 command! PackClean source $MYVIMRC | call minpac#clean()
 command! PackStatus source $MYVIMRC | call minpac#status()
 """" ale
+" Testing coc as a replacement for ale
 " disable typescript. Use nvim-typescript
 " only run linters I have defined
-let g:ale_linters_explicit = 1
-let g:ale_linters = {
-\'javascript': ['eslint'],
-\}
+"let g:ale_linters_explicit = 1
+"let g:ale_linters = {
+"\'javascript': ['eslint'],
+"\}
 
 " use deoplete for completion instead of ale
 " let g:ale_completion_enabled = 1
-let g:ale_sign_column_always = 1
-nmap <silent> [W <Plug>(ale_first)
-nmap <silent> [w <Plug>(ale_previous)
-nmap <silent> ]w <Plug>(ale_next)
-nmap <silent> ]W <Plug>(ale_first)
+"let g:ale_sign_column_always = 1
+"nmap <silent> [W <Plug>(ale_first)
+"nmap <silent> [w <Plug>(ale_previous)
+"nmap <silent> ]w <Plug>(ale_next)
+"nmap <silent> ]W <Plug>(ale_first)
 
 " Set this variable to 1 to fix files when you save them.
-let g:ale_fix_on_save = 1
-let g:ale_fixers = {
-\   '*': ['prettier'],
-\}
+"let g:ale_fix_on_save = 1
+"let g:ale_fixers = {
+"\   'javascript': ['prettier'],
+"\   'typescript': ['prettier'],
+"\}
 
 " Add support for virtual text
-let g:ale_virtualtext_cursor = 1
+"let g:ale_virtualtext_cursor = 1
 
 """" vim-autoclose
 " For some reason vim-autoclose breaks abbreviations unless you 
@@ -228,12 +235,17 @@ set background=dark
 " colo one
 " Color scheme for lightline
 let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
       \ 'component_function': {
       \   'filetype': 'MyFiletype',
       \   'fileformat': 'MyFileformat',
+      \   'cocstatus': 'coc#status'
+      \ },
       \ }
-      \ }
-let g:lightline.colorscheme = 'one'
 
 function! MyFiletype()
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
@@ -243,78 +255,18 @@ function! MyFileformat()
   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
+source $MYVIMCONFIG/basic-settings.vim
+source $MYVIMCONFIG/navigation-mappings.vim
+source $MYVIMCONFIG/windows-tabs.vim
+source $MYVIMCONFIG/editing-mappings.vim
+source $MYVIMCONFIG/ex-commands.vim
+source $MYVIMCONFIG/gatsby-blogging.vim
+source $MYVIMCONFIG/autocommands.vim
+source $MYVIMCONFIG/file-explorer.vim
+source $MYVIMCONFIG/completion.vim
 
-"" Basic vim setup
-
-" Filetypes
-" This enables file type detection (like filetype on)
-" and also loading plugins and indentation per filetype
-filetype plugin indent on
-syntax enable    " enable syntax highlighting
-
-
-set autoindent   " Copy indent from current line when starting a new line
-
-set clipboard+=unnamedplus " use system clipboard
-set showcmd      " display incomplete commands
-set showmode     " display the mode you're in
-set backspace=indent,eol,start "intuitive backspacing"
-set hidden       " Handle multiple buffers better
-set wildmenu     " enhanced command line completion
-set wildmode=list:longest " complete files like a shell
-
-""" Search
-set ignorecase   " case-insensitive search
-set smartcase    " but case-sensitive if expression contains a capital letter
-set relativenumber "show relative line number
-set ruler        " show cursor position
-set incsearch    " highlight matches as you type
-set hlsearch     " highlight matches
-
-""" Regex
-set gdefault     " use global option in regex by default
-
-set wrap         " turn on line wrapping
-set scrolloff=3  " show 3 lines of context around cursor
-set display+=lastline "Display as much as possible of a window's last line
-set list         " show invisible characters
-set title        " show terminal title
-set visualbell   " no beeping
-
-"" Global tabs/spaces
-set smarttab     " use spaces instead of tabs
-set tabstop=2    " global tab width
-set shiftwidth=2
-set expandtab    " use spaces instead of tabs
-set laststatus=2 " Always show a status line
-
-set nobackup " no backups
-set nowritebackup " No backups
-set noswapfile " No swap files
-set autoread " Automatically re-read files changed outside of vim
-set nofoldenable " Disable folding
-
-set encoding=utf-8
-
-" Navigation: Custom Motions/Movements
-source $VIMCONFIG/navigation-mappings.vim
-" Windows and Tabs
-source $VIMCONFIG/windows-tabs.vim
-" Custom Text editing
-source $VIMCONFIG/editing-mappings.vim
-" Ex commands
-source $VIMCONFIG/ex-commands.vim
-" Gatsby blogging
-source $VIMCONFIG/gatsby-blogging.vim
-" Autocommands
-source $VIMCONFIG/autocommands.vim
-
-" Load the plugins right now
-" I need to load the plugins here because otherwise I can't
-" configure deoplete
-packloadall
-
-"""" plugins specific config
+" packloadall " load plugins here if required by plugins for configuration
+"""" plugins that require to be loaded before configuring them go here
 "" Deoplete
-source $VIMCONFIG/deoplete.vim
+" source $VIMCONFIG/deoplete.vim
 
