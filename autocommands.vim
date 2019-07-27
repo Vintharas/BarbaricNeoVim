@@ -11,5 +11,5 @@ augroup END
 augroup my_markdown
 autocmd!
 autocmd FileType markdown 
-nmap <leader>d F-a<space>[*]<ESC>
+nmap <leader>d $F-a<space>[*]<ESC>
 augroup END

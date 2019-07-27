@@ -129,6 +129,7 @@ call minpac#add('neoclide/coc.nvim', {'do': { -> coc#util#install()}})
 " coc-css      - css completions
 " coc-word     - top 10K english words
 " coc-snippets - snippets
+" coc-emmet    - (do I need the other emmet plugin??)
 
 " Snippets
 " call minpac#add('Shougo/neosnippet.vim')         " snippet support 
@@ -253,6 +254,24 @@ endfunction
 
 function! MyFileformat()
   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
+
+" Show relative path to file in relation to
+" project root folder (root of git repo).
+" It uses vim-fugitive.
+let g:lightline = {
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \ }
+      \ }
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
 endfunction
 
 source $MYVIMCONFIG/basic-settings.vim
