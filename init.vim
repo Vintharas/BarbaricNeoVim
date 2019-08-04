@@ -279,10 +279,10 @@ source $MYVIMCONFIG/navigation-mappings.vim
 source $MYVIMCONFIG/windows-tabs.vim
 source $MYVIMCONFIG/editing-mappings.vim
 source $MYVIMCONFIG/ex-commands.vim
-source $MYVIMCONFIG/gatsby-blogging.vim
 source $MYVIMCONFIG/autocommands.vim
 source $MYVIMCONFIG/file-explorer.vim
 source $MYVIMCONFIG/completion.vim
+source $MYVIMCONFIG/gatsby-blogging.vim
 
 " packloadall " load plugins here if required by plugins for configuration
 """" plugins that require to be loaded before configuring them go here
