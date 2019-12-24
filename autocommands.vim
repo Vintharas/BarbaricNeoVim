@@ -12,3 +12,7 @@ augroup my_markdown
 autocmd!
 autocmd FileType markdown nmap <leader>d $F-a<space>[*]<ESC>
 augroup END
+
+augroup svelte
+au! BufNewFile,BufRead *.svelte set ft=html
+augroup END

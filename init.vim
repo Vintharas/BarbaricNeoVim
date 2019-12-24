@@ -147,8 +147,6 @@ let g:neodark#background = '#202020'
 """" Markdown
 " Highlight YAML front matter
 let g:vim_markdown_frontmatter = 1
-"""" FZF - bind file fuzzy search to C-p
-nnoremap <C-p> :<C-u>FZF<CR> 
 """" minpac - simpler commands
 command! PackUpdate source $MYVIMRC | call minpac#update()
 command! PackClean source $MYVIMRC | call minpac#clean()
@@ -283,6 +281,8 @@ source $MYVIMCONFIG/autocommands.vim
 source $MYVIMCONFIG/file-explorer.vim
 source $MYVIMCONFIG/completion.vim
 source $MYVIMCONFIG/gatsby-blogging.vim
+source $MYVIMCONFIG/fzf.vim
+source $MYVIMCONFIG/abbreviations.vim
 
 " packloadall " load plugins here if required by plugins for configuration
 """" plugins that require to be loaded before configuring them go here
