@@ -4,7 +4,6 @@
 " let &packpath = &runtimepath
 " source ~/.vim/vimrc
 "
-"
 " Starting afresh!!! Wiiii!
 "
 " set nocompatible  " This is set by default in neovim
@@ -275,8 +274,8 @@ endfunction
 
 source $MYVIMCONFIG/basic-settings.vim
 source $MYVIMCONFIG/navigation-mappings.vim
-source $MYVIMCONFIG/windows-tabs.vim
 source $MYVIMCONFIG/editing-mappings.vim
+source $MYVIMCONFIG/windows-tabs.vim
 source $MYVIMCONFIG/ex-commands.vim
 source $MYVIMCONFIG/autocommands.vim
 source $MYVIMCONFIG/file-explorer.vim
@@ -293,4 +292,6 @@ source $MYVIMCONFIG/abbreviations.vim
 " source $VIMCONFIG/deoplete.vim
 
 " Load lua config
+" gf => $MYVIMCONFIG/lua/config.lua
 lua require('config')
+
