@@ -1,0 +1,4 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": ["css", "typescriptreact", "typescript", "javascript", "javascript.jsx", "javascriptreact"],
+  "go.goplsPath": "gopls"
+}

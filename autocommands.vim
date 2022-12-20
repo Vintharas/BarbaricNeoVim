@@ -13,6 +13,22 @@ autocmd!
 autocmd FileType markdown nmap <leader>d $F-a<space>[*]<ESC>
 augroup END
 
+" For some reason the ftdetect of vim-svelte
+" inside polyglot is not running this autocommand
+" so I have duplicated it here
 augroup svelte
-au! BufNewFile,BufRead *.svelte set ft=html
+au!
+au BufRead,BufNewFile *.svelte setfiletype svelte
+augroup END
+
+" Treat all json files as jsonc so that comments are allowed and don't result
+" in diagnostic errors
+augroup JsonToJsonc
+    autocmd! FileType json set filetype=jsonc
+augroup END
+
+augroup goAutocmd
+  " Don't visualize invisible characters
+  " The gofmt is going to fix everything anythow
+  autocmd! FileType go set nolist
 augroup END

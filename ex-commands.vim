@@ -1,10 +1,11 @@
 " Ex commands mappings
 " Make easy editing and sourcing vimrc
 command! RefreshConfig source $MYVIMRC <bar> echo "Refreshed vimrc!"
-:nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-:nnoremap <leader>sv :RefreshConfig<cr>
-" For some reason refreshing config screws with the tmux plugin. (TODO: Investigate!)
 
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>es :RefreshConfig<cr>
+nnoremap <leader>el :vsplit $MYLUAVIMRC<cr>
+" For some reason refreshing config screws with the tmux plugin. (TODO: Investigate!)
 
 " Remapping ; to : so I don't need to type SHIFT
 " 01-2019: This is very nice but I miss ; to move to next match and my brain
@@ -32,4 +33,13 @@ nnoremap <leader>/ :noh<CR>
 
 " vecka.nu
 " echoes week number (%W is 0 based)
-command! VeckaNu echo strftime('%W') + 1
+command! VeckaNu echo strftime('%W')
+
+" Blog commands
+command! -nargs=* BlogNewNotes execute "!mkdir src/pages/notes/".LowercaseAndReplaceSpacesWithDashes(<q-args>) | execute "e src/pages/notes/".LowercaseAndReplaceSpacesWithDashes(<q-args>)."/index.md"
+command! -nargs=* Wat execute "echo " string(<q-args>)
+
+function LowercaseAndReplaceSpacesWithDashes(text)
+  return tolower(substitute(a:text, ' ', '-', 'g'))
+endfunction
+

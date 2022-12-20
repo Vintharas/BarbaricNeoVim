@@ -41,3 +41,6 @@ vnoremap <Leader>k K
 " nnoremap <tab> % 
 " vnoremap <tab> %
 
+" Search 
+noremap <leader>vm /\v
+noremap <leader>vn /\V

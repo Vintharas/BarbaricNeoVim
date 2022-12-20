@@ -28,11 +28,15 @@ call minpac#add('KeitaNakamura/neodark.vim')
 call minpac#add('rakr/vim-one')
 call minpac#add('haishanh/night-owl.vim')
 call minpac#add('ryanoasis/vim-devicons')
+call minpac#add('folke/tokyonight.nvim', {'branch': 'main'})
 " Other colorschemes that are nice but I'm not using
 " call minpac#add('tomasr/molokai')
 " call minpac#add('Lokaltog/vim-distinguished')
 " call minpac#add('fenetikm/falcon')
 " call minpac#add('haishanh/night-owl.vim')
+
+" Home screen
+call minpac#add('mhinz/vim-startify')     " Enable home screen with MRU files
 
 " Editing
 call minpac#add('tpope/vim-repeat')       " Enable repeating supported plugin maps with .
@@ -41,11 +45,14 @@ call minpac#add('tpope/vim-surround')     " Quoting parenthesing made simple
 call minpac#add('wellle/targets.vim')     " Extend and enhances text-objects
 call minpac#add('scrooloose/nerdcommenter') " Comments
 
-" Denite - all purpose list search and actions
-call minpac#add('Shougo/denite.nvim')     " denite
-call minpac#add('Shougo/neomru.vim')      " most recently used
-call minpac#add('neoclide/denite-git')    " git
-call minpac#add('chemzqm/denite-extra')   " extra sources (session, project, commands, location, quickfix, history)
+" Vim wiki
+call minpac#add('vimwiki/vimwiki')        " vimwiki (wikis and todo lists in markdown)
+let g:vimwiki_global_ext = 0              " Don't create ad-hoc wikis.
+                                          " Only use vimwiki for the ones declared below.
+let g:vimwiki_list = [
+   \ {'path': '~/GitHub/GitThingsDone/', 'syntax': 'markdown', 'ext': '.md'},
+   \ {'path': '~/GitHub/barbarianmeetscoding/README.md', 'syntax': 'markdown', 'ext': '.md'},
+   \ ]
 
 " Customize UI
 call minpac#add('itchyny/lightline.vim')  " Custom Status line
@@ -57,6 +64,9 @@ call minpac#add('scrooloose/nerdtree')     " File tree explorer
 call minpac#add('tpope/vim-projectionist') " Semantic based navigation configurable per project
 call minpac#add('mhinz/vim-grepper')       " Search files
 
+" Working with registers
+call minpac#add('junegunn/vim-peekaboo')  " Inspect registers
+
 " Support for other tools
 call minpac#add('tpope/vim-fugitive')     " git wrapper
 call minpac#add('tpope/vim-dispatch')     " dispatch other tools such as compilers, linters, etc
@@ -66,18 +76,24 @@ call minpac#add('radenling/vim-dispatch-neovim')
 call minpac#add('janko-m/vim-test')       " testing helpers
 
 " Support for languages
+" call minpac#add('sheerun/vim-polyglot')   " Support for many languages
 call minpac#add('tpope/vim-ragtag')       " XML/HTML mappings
-call minpac#add('godlygeek/tabular')       " required by vim-markdown
-call minpac#add('plasticboy/vim-markdown') " markdown support
 call minpac#add('mattn/emmet-vim') " emmet
+call minpac#add('godlygeek/tabular')       " required by vim-markdown
+call minpac#add('plasticboy/vim-markdown')   " markdown
 call minpac#add('cakebaker/scss-syntax.vim') " SASS
+call minpac#add('evanleck/vim-svelte') " svelte
+call minpac#add('jxnblk/vim-mdx-js') " mdx
+call minpac#add('fatih/vim-go') " go
 
 "" JavaScript
 call minpac#add('pangloss/vim-javascript') " JavaScript
 call minpac#add('mxw/vim-jsx')             " JSX
 
+"" Json
+call minpac#add('kevinoid/vim-jsonc') " jsonc
+
 "" TypeScript
-" call minpac#add('leafgarland/typescript-vim') " TypeScript syntax
 call minpac#add('HerringtonDarkholme/yats.vim') " TypeScript syntax
 
 "" Elm
@@ -109,36 +125,19 @@ call minpac#add('christoomey/vim-tmux-navigator') " Better navigation integratio
 " <ctrl-l> => Right
 " <ctrl-\> => Previous split
 
-" Autocompletion
-" Deoplete provides autocompletion from many sources
-" call minpac#add('Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'})
-" let g:deoplete#enable_at_startup = 1
-" call minpac#add('mhartington/nvim-typescript', {'do': './install.sh'})
-" call minpac#add('Shougo/neoinclude.vim')
-" call minpac#add('ujihisa/neco-look')
-" call minpac#add('Shougo/echodoc.vim')
-" let g:echodoc_enable_at_startup= 1
-" Testing coc (conquer of completion)
-call minpac#add('Shougo/neco-vim')        " completion for viml
-call minpac#add('neoclide/coc-neco')      " adapter of nec to coc
-call minpac#add('neoclide/coc.nvim', {'do': { -> coc#util#install()}})
-" :CocInstall {coc-extensions}
-" coc-tsserver - typescript completions
-" coc-json     - json completions
-" coc-html     - html completions
-" coc-css      - css completions
-" coc-word     - top 10K english words
-" coc-snippets - snippets
-" coc-emmet    - (do I need the other emmet plugin??)
-
 " Snippets
-" call minpac#add('Shougo/neosnippet.vim')         " snippet support 
-" call minpac#add('Shougo/neosnippet-snippets')    " collection of snippets
 call minpac#add('honza/vim-snippets')              " collection of snippets
 
 " Moving around or Motions
 call minpac#add('justinmk/vim-sneak')      " vim sneak. faster movement within Vim
 call minpac#add('easymotion/vim-easymotion') " vim easymotion
+call minpac#add('matze/vim-move')          " move lines, selections, chars easily
+
+" Windows and tabs
+call minpac#add('troydm/zoomwintab.vim')    " zoom buffer within Vim similar to tmux
+
+" Tree sitter
+call minpac#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'})
 
 "" Plugins config
 """" Neodark
@@ -151,6 +150,7 @@ let g:vim_markdown_frontmatter = 1
 command! PackUpdate source $MYVIMRC | call minpac#update()
 command! PackClean source $MYVIMRC | call minpac#clean()
 command! PackStatus source $MYVIMRC | call minpac#status()
+command! PackList echo join(minpac#getpackages("minpac", "start"), "\n")
 """" ale
 " Testing coc as a replacement for ale
 " disable typescript. Use nvim-typescript
@@ -228,13 +228,14 @@ if (has("termguicolors"))
  set termguicolors
 endif
 " Set colorscheme
-colo one
+" colo one
+colo tokyonight
 set background=dark
 " colo neodark
 " colo one
 " Color scheme for lightline
 let g:lightline = {
-      \ 'colorscheme': 'one',
+      \ 'colorscheme': 'tokyonight',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -279,13 +280,17 @@ source $MYVIMCONFIG/editing-mappings.vim
 source $MYVIMCONFIG/ex-commands.vim
 source $MYVIMCONFIG/autocommands.vim
 source $MYVIMCONFIG/file-explorer.vim
-source $MYVIMCONFIG/completion.vim
+" TODO: Remove this completion that's using coc.nvim in
+" favor of built-in LSP client.
+"source $MYVIMCONFIG/completion.vim
 source $MYVIMCONFIG/gatsby-blogging.vim
 source $MYVIMCONFIG/fzf.vim
 source $MYVIMCONFIG/abbreviations.vim
 
-" packloadall " load plugins here if required by plugins for configuration
+"packloadall " load plugins here if required by plugins for configuration
 """" plugins that require to be loaded before configuring them go here
 "" Deoplete
 " source $VIMCONFIG/deoplete.vim
 
+" Load lua config
+lua require('config')

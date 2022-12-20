@@ -4,6 +4,7 @@
 " inoremap <ESC> <NOP>
 " Type jk to leave insert mode
 inoremap jk <ESC>
+inoremap jj <ESC>
 
 
 " Since I remapped J and I still want to join stuff
@@ -13,6 +14,6 @@ vnoremap <Leader>j J
 nnoremap M J
 vnoremap M J
 
-
 " Keep s available
-nnoremap <Leader>sl s
+" Removing temporarily to test <leader>s as cmdp
+" nnoremap <Leader>sl s
