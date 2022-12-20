@@ -1,4 +1,5 @@
 .netrwhist
 
-# ignore plugin folder
+# ignore "pack" packages that normally includes plugins
+# managed by a plugin manager
 pack/
