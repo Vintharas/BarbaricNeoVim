@@ -96,13 +96,6 @@ call minpac#add('HerringtonDarkholme/yats.vim') " TypeScript syntax
 "" Elm
 call minpac#add('ElmCast/elm-vim')   " Elm  support
 
-"" Haskell
-"" call minpac#add('eagletmt/neco-ghc')
-"" so ghc-mod seems to be deprecated
-"" a better wayto set this up would be using the LSP suppor provided by the
-"" maintained haskell-ide-engine
-"" see https://github.com/haskell/haskell-ide-engine/issues/331
-
 " Autoclose tags and quotes
 " Temporary disabled as it breaks abbreviations
 call minpac#add('Townk/vim-autoclose')   " Autoclose parens and stuff
@@ -132,9 +125,6 @@ call minpac#add('matze/vim-move')          " move lines, selections, chars easil
 
 " Windows and tabs
 call minpac#add('troydm/zoomwintab.vim')    " zoom buffer within Vim similar to tmux
-
-" Tree sitter
-call minpac#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'})
 
 "" Plugins config
 """" Neodark
