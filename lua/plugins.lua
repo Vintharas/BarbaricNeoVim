@@ -19,11 +19,17 @@ return require('packer').startup(function(use)
       {'saadparwaiz1/cmp_luasnip'},
       {'hrsh7th/cmp-nvim-lsp'},
       {'hrsh7th/cmp-nvim-lua'},
+      {'uga-rosa/cmp-dictionary'},
 
       -- Snippets
       {'L3MON4D3/LuaSnip'},
       {'rafamadriz/friendly-snippets'},
     }
+  }
+  -- diagnostics
+  use {
+  "folke/trouble.nvim",
+  requires = "nvim-tree/nvim-web-devicons",
   }
 
   -- Treesitter: Highlight, edit and navigate code

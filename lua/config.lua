@@ -6,4 +6,5 @@ require'globals'
 require'lsp'
 require'telescope-config'
 require'treesitter'
+require'diagnostics'
 

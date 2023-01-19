@@ -9,7 +9,10 @@ vim.opt.writebackup = false
 vim.opt.updatetime = 300
 -- Reserve space for diagnostic icons
 vim.opt.signcolumn = 'yes'
--- </coc.nvim config>
+
+local merge = function(a, b)
+  return vim.tbl_deep_extend('force', {}, a, b)
+end
 
 local lsp = require'lsp-zero'
 lsp.preset'recommended'
@@ -19,6 +22,7 @@ lsp.set_preferences{
   set_lsp_keymaps = false
 }
 
+-- Replace complete on_attach with custom version
 lsp.on_attach(function(client, bufnr)
   -- Remap
   -- The main reason for remapping these mappings is that I always, always use K for 5k
@@ -75,6 +79,59 @@ lsp.ensure_installed{
   'sumneko_lua',
 }
 
+-- Additional vim-cmp plugin config.
+local check_back_space = function()
+  local col = vim.fn.col('.') - 1
+  if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+    return true
+  else
+    return false
+  end
+end
+
+local cmp = require'cmp'
+local luasnip = require 'luasnip'
+cmp.setup({
+  mapping = cmp.mapping.preset.insert({
+    -- Use <C-space> to trigger completion
+    -- classic Visual Studio :D
+    ['<C-Space>'] = cmp.mapping.complete(),
+    -- when luasnip, expand or jump
+    -- when menu is visible, select current item
+    -- when line is empty, insert a tab character
+    -- else, activate completion
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        -- cmp.select_next_item(select_opts)
+        cmp.confirm{select = false}
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif check_back_space() then
+        fallback()
+      else
+        cmp.complete()
+      end
+    end, {'i', 's'}),
+  }),
+
+  sources = merge(lsp.defaults.cmp_sources(),
+    { name = 'dictionary'}),
+})
+
+
+-- nvim-cmp config per filetype
+-- one needs to install dictionary files meeeh
+--cmp.setup.filetype('markdown', {
+  --sources = cmp.config.sources({
+    --{ name = 'dictionary' },
+  --})
+--})
+--cmp.setup.filetype('markdown.mdx', {
+  --sources = cmp.config.sources({
+    --{ name = 'dictionary' },
+  --})
+--})
+
 lsp.nvim_workspace()
 
 lsp.setup()
@@ -97,13 +154,3 @@ vim.diagnostic.config{
 -- Additional mappings
 -- Add buffer diagnostics to the location list.
 vim.keymap.set('n', 'gq', vim.diagnostic.setloclist)
-
--- Additional vim-cmp plugin config.
-local cmp = require'cmp'
-cmp.setup({
-  mapping = cmp.mapping.preset.insert({
-    -- Use <C-space> to trigger completion
-    -- classic Visual Studio :D
-    ['<C-Space>'] = cmp.mapping.complete(),
-  }),
-})

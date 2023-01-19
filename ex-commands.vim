@@ -30,6 +30,7 @@ cnoremap <C-p> <Up>
 
 " clear highlights
 nnoremap <leader>/ :noh<CR> 
+nnoremap <leader>// :noh<CR>
 
 " vecka.nu
 " echoes week number (%W is 0 based)

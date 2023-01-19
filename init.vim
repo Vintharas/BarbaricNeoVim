@@ -70,8 +70,6 @@ call minpac#add('junegunn/vim-peekaboo')  " Inspect registers
 call minpac#add('tpope/vim-fugitive')     " git wrapper
 call minpac#add('tpope/vim-dispatch')     " dispatch other tools such as compilers, linters, etc
 call minpac#add('radenling/vim-dispatch-neovim') 
-" testing coc as a replacement for ale
-" call minpac#add('w0rp/ale')             " linting, code completion, go to definition
 call minpac#add('janko-m/vim-test')       " testing helpers
 
 " Support for languages
@@ -150,32 +148,6 @@ command! PackUpdate source $MYVIMRC | call minpac#update()
 command! PackClean source $MYVIMRC | call minpac#clean()
 command! PackStatus source $MYVIMRC | call minpac#status()
 command! PackList echo join(minpac#getpackages("minpac", "start"), "\n")
-"""" ale
-" Testing coc as a replacement for ale
-" disable typescript. Use nvim-typescript
-" only run linters I have defined
-"let g:ale_linters_explicit = 1
-"let g:ale_linters = {
-"\'javascript': ['eslint'],
-"\}
-
-" use deoplete for completion instead of ale
-" let g:ale_completion_enabled = 1
-"let g:ale_sign_column_always = 1
-"nmap <silent> [W <Plug>(ale_first)
-"nmap <silent> [w <Plug>(ale_previous)
-"nmap <silent> ]w <Plug>(ale_next)
-"nmap <silent> ]W <Plug>(ale_first)
-
-" Set this variable to 1 to fix files when you save them.
-"let g:ale_fix_on_save = 1
-"let g:ale_fixers = {
-"\   'javascript': ['prettier'],
-"\   'typescript': ['prettier'],
-"\}
-
-" Add support for virtual text
-"let g:ale_virtualtext_cursor = 1
 
 """" vim-autoclose
 " For some reason vim-autoclose breaks abbreviations unless you 
@@ -237,12 +209,11 @@ let g:lightline = {
       \ 'colorscheme': 'tokyonight',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
       \   'filetype': 'MyFiletype',
       \   'fileformat': 'MyFileformat',
-      \   'cocstatus': 'coc#status'
       \ },
       \ }
 
@@ -279,9 +250,6 @@ source $MYVIMCONFIG/windows-tabs.vim
 source $MYVIMCONFIG/ex-commands.vim
 source $MYVIMCONFIG/autocommands.vim
 source $MYVIMCONFIG/file-explorer.vim
-" TODO: Remove this completion that's using coc.nvim in
-" favor of built-in LSP client.
-"source $MYVIMCONFIG/completion.vim
 source $MYVIMCONFIG/gatsby-blogging.vim
 source $MYVIMCONFIG/fzf.vim
 source $MYVIMCONFIG/abbreviations.vim
